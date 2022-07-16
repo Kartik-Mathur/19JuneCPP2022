@@ -8,7 +8,6 @@ int main() {
 	int ans;
 
 	int i;
-
 	int chotaNumber;
 	if (no1 > no2) {
 		chotaNumber = no2;
