@@ -1,10 +1,9 @@
-// BubbleSort.cpp
 #include <iostream>
 using namespace std;
 
 int main() {
 
-	int a[] = {5, 4, 6, 2, 1}, temp;
+	int a[] = {5, 6, 4, 3, 7, 8, 9, 0};
 	int n = sizeof(a) / sizeof(int);
 	for (int i = 0; i < n; ++i)
 	{
@@ -14,15 +13,18 @@ int main() {
 
 	for (int i = 0; i < n - 1; ++i)
 	{
-		for (int j = 0; j <= n - 2 - i; ++j)
+		int mi = i;
+		for (int j = i + 1; j < n; ++j)
 		{
-			if (a[j] > a[j + 1]) {
-				// swap a[j] and a[j+1]
-				temp = a[j];
-				a[j] = a[j + 1];
-				a[j + 1] = temp;
+			if (a[j] < a[mi]) {
+				mi = j;
 			}
 		}
+
+		// swap ai, ami
+		int temp = a[i];
+		a[i] = a[mi];
+		a[mi] = temp;
 	}
 
 	for (int i = 0; i < n; ++i)
@@ -30,6 +32,7 @@ int main() {
 		cout << a[i] << " ";
 	}
 	cout << endl;
+
 
 	return 0;
 }
