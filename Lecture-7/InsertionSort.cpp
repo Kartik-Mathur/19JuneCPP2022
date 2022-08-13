@@ -17,7 +17,7 @@ int main() {
 		HPC = a[i];
 		for (j = i - 1; j >= 0; --j)
 		{
-			if (a[j] > HPC) {
+			if (meraCompare(a[j], HPC)) {
 				a[j + 1] = a[j];
 			}
 			else {
