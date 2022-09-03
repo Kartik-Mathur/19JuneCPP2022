@@ -16,7 +16,6 @@ bool isSafe(int board[][9], int i, int j, int no, int n) {
 	n = sqrt(n); // n = 3
 	int si = (i / n) * n;
 	int sj = (j / n) * n;
-
 	for (int k = si; k < si + n; ++k)
 	{
 		for (int l = sj; l < sj + n; ++l)
