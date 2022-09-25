@@ -46,7 +46,6 @@ void primeSieve(int n) {
 		}
 	}
 	cout << endl;
-
 }
 
 int main() {
