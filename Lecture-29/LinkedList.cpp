@@ -237,12 +237,84 @@ node* mergeSort(node* head) {
 //////////////////////////// @MERGE-SORT LL //////////////////////////////////
 
 
+//////////////////////////// Bubble-SORT LL //////////////////////////////////
+void BubbleSortLL(node* &head) {
+	int len = LengthLL(head);
+	for (int i = 0; i < len - 1; ++i)
+	{
+		node*c = head, *p = NULL;
+		while (c !=  NULL and c->next != NULL) {
+			node* n = c->next;
+			if (c->data > n->data) {
+				// swapping hogi
+				if (p == NULL) {
+					c->next = n->next;
+					n->next = c;
+					p = head = n;
+				}
+				else {
+					c->next = n->next;
+					n->next = c;
+					p->next = n;
+					p = n;
+				}
+			}
+			else {
+				// swapping nahi hogi
+				p = c;
+				c = n;
+			}
+		}
+	}
+}
 
+//////////////////////////// !Bubble-SORT LL //////////////////////////////////
+
+
+
+
+
+//////////////////////////// Break Cycle LL //////////////////////////////////
+void breakCycle(node* head, node* fast) {
+	node* slow = head;
+	node* temp = head;
+	while (temp->next != fast) {
+		temp = temp->next;
+	}
+
+	while (fast != slow) {
+		temp = fast;
+		fast = fast	-> next;
+		slow = slow -> next;
+	}
+	temp->next = NULL;
+}
+//////////////////////////// !Break Cycle LL //////////////////////////////////
+
+//////////////////////////// Cycle Detection LL //////////////////////////////////
+bool isCyclic(node* head) {
+	node* f = head, *s = head;
+	while (f and f->next) {
+		f = f->next->next;
+		s = s->next;
+		if (s == f) {
+			breakCycle(head, f);
+			return true;
+		}
+	}
+
+	return false;
+}
+//////////////////////////// !Cycle Detection LL //////////////////////////////////
+
+void createCycle(node* head, node* tail) {
+	tail->next = head->next->next->next;
+}
 
 
 int main() {
 	node *head = NULL, *tail = NULL;
-	node *head1 = NULL, *tail1 = NULL;
+	// node *head1 = NULL, *tail1 = NULL;
 
 
 	InsertAtEnd(head, tail, 10);
@@ -252,7 +324,12 @@ int main() {
 	InsertAtEnd(head, tail, 4);
 	InsertAtEnd(head, tail, 2);
 	InsertAtEnd(head, tail, 1);
+	InsertAtEnd(head, tail, 5);
+	printLL(head);
 
+	createCycle(head, tail);
+	isCyclic(head);
+	printLL(head);
 
 	// InsertAtEnd(head1, tail1, 2);
 	// InsertAtEnd(head1, tail1, 4);
@@ -260,11 +337,17 @@ int main() {
 	// InsertAtEnd(head1, tail1, 9);
 	// InsertAtEnd(head1, tail1, 10);
 
-	printLL(head);
+	// printLL(head);
 	// printLL(head1);
-	head = mergeSort(head);
+	// head = mergeSort(head);
+	// BubbleSortLL(head);
 	// head = mergeSortedLL(head, head1);
-	printLL(head);
+	// if (isCyclic(head) != true) {
+	// 	printLL(head);
+	// }
+	// else {
+	// 	cout << "Print mat kar be, cycle hai\n";
+	// }
 
 
 
