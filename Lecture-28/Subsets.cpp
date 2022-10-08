@@ -2,14 +2,12 @@
 class Solution {
 public:
 	vector<vector<int>> ans;
-
 	void solve(vector<int> &nums, int i, vector<int> &x) {
 		// base case
 		if (i == nums.size()) {
 			ans.push_back(x);
 			return;
 		}
-
 		// recursive case
 		// pehla case include mat karo inside x
 		solve(nums, i + 1, x);
