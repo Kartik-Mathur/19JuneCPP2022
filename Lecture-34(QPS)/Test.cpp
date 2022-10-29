@@ -1,8 +1,6 @@
 class Solution {
 public:
-
 	int solve(int *freq) {
-
 		int ans = 0;
 		for (int i = 0; i < 26; ++i)
 		{
