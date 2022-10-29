@@ -44,6 +44,21 @@ node* createBST() {
 	return root;
 }
 
+node* searchBST(node* root, int key) {
+	// base case
+	if (!root) return NULL;
+	// recursive case
+	if (root->data == key) {
+		return root;
+	}
+	else if (root->data > key) {
+		return searchBST(root->left, key);
+	}
+	else {
+		return searchBST(root->right, key);
+	}
+}
+
 
 void preorder(node* root) {
 	if (root == NULL) {
@@ -72,6 +87,62 @@ void postorder(node* root) {
 	cout << root->data << " ";
 }
 
+void printRange(node* root, int k1, int k2) {
+	if (root == NULL) {
+		return;
+	}
+	printRange(root->left, k1, k2);
+	if (root->data >= k1 and root->data <= k2) cout << root->data << " ";
+	printRange(root->right, k1, k2);
+}
+
+class Pair {
+public:
+	int height;
+	bool balanced;
+};
+
+Pair isBalanced(node* root) {
+	// base case
+	Pair p;
+	if (!root) {
+		p.height  = 0;
+		p.balanced = true;
+		return p;
+	}
+
+	// recursive case
+	Pair left = isBalanced(root->left);
+	Pair right = isBalanced(root->right);
+
+	if (left.balanced and right.balanced
+	        and abs(left.height - right.height) <= 1) {
+		p.balanced = true;
+	}
+	else {
+		p.balanced = false;
+	}
+
+	p.height = max(left.height, right.height) + 1;
+	return p;
+}
+
+bool isBST(node* root, int mi = INT_MIN, int mx = INT_MAX) {
+	// base case
+	if (!root) {
+		return true;
+	}
+
+	// recursive case
+	if (root->data >= mi and root->data <= mx and
+	        isBST(root->left, mi, root->data) == true and
+	        isBST(root->right, root->data, mx) == true
+	   ) {
+		return true;
+	}
+	return false;
+}
+
 int main() {
 
 	node* root = createBST();
@@ -82,6 +153,33 @@ int main() {
 	cout << endl;
 	postorder(root);
 	cout << endl;
+	printRange(root, 4, 10);
+	cout << endl;
+
+	node* ans = searchBST(root, 140);
+	if (ans) {
+		cout << ans->data << endl;
+	}
+	else {
+		cout << "Not found\n";
+	}
+
+	Pair p = isBalanced(root);
+	cout << "Height: " << p.height << endl;
+	if (p.balanced) {
+		cout << "balanced hai\n";
+	}
+	else {
+		cout << "balanced nahi hai\n";
+	}
+
+	if (isBST(root)) {
+		cout << "BST hai\n";
+	}
+	else {
+		cout << "BST nahi hai\n";
+	}
+
 	return 0;
 }
 
