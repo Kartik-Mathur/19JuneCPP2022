@@ -143,9 +143,26 @@ bool isBST(node* root, int mi = INT_MIN, int mx = INT_MAX) {
 	return false;
 }
 
+node* createBalancedBST(int *a, int s, int e) {
+	// base case
+	if (s > e) {
+		return  NULL;
+	}
+	int m = (s + e) / 2;
+	node* root = new node(a[m]);
+	root->left = createBalancedBST(a, s, m - 1);
+	root->right = createBalancedBST(a, m + 1, e);
+	return root;
+}
+
 int main() {
 
-	node* root = createBST();
+	// node* root = createBST();
+	int a[] = {1, 2, 3, 4, 5, 6, 7, 10};
+	int n = sizeof(a) / sizeof(int);
+
+	node* root =  createBalancedBST(a, 0, n - 1);
+
 
 	preorder(root);
 	cout << endl;
