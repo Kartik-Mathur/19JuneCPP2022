@@ -155,6 +155,49 @@ node* createBalancedBST(int *a, int s, int e) {
 	return root;
 }
 
+class LinkedList {
+public:
+	node* head, *tail;
+};
+
+LinkedList BSTtoLL(node* root) {
+	LinkedList l;
+	// base case
+	if (!root) {
+		l.head = l.tail =  NULL;
+		return l;
+	}
+
+	// recursive case
+	if (root->left and root->right) {
+		LinkedList left = BSTtoLL(root->left);
+		LinkedList right = BSTtoLL(root->right);
+		left.tail->right  = root;
+		root->right = right.head;
+		l.head = left.head;
+		l.tail = right.tail;
+		return l;
+	}
+	else if (root->left and !root->right) {
+		LinkedList left  = BSTtoLL(root->left);
+		left.tail->right  = root;
+		l.head = left.head;
+		l.tail = root;
+		return l;
+	}
+	else if (!root->left and root->right) {
+		LinkedList right =  BSTtoLL(root->right);
+		root->right = right.head;
+		l.head  = root;
+		l.tail  = right.tail;
+		return l;
+	}
+	else {
+		l.head = l.tail = root;
+		return l;
+	}
+}
+
 int main() {
 
 	// node* root = createBST();
@@ -162,40 +205,47 @@ int main() {
 	int n = sizeof(a) / sizeof(int);
 
 	node* root =  createBalancedBST(a, 0, n - 1);
+	LinkedList l = BSTtoLL(root);
 
+	node* head = l.head;
+	while (head) {
+		cout << head->data << "-->";
+		head =  head->right;
+	}
+	cout << "NULL\n";
 
-	preorder(root);
-	cout << endl;
-	inorder(root);
-	cout << endl;
-	postorder(root);
-	cout << endl;
-	printRange(root, 4, 10);
-	cout << endl;
+	// preorder(root);
+	// cout << endl;
+	// inorder(root);
+	// cout << endl;
+	// postorder(root);
+	// cout << endl;
+	// printRange(root, 4, 10);
+	// cout << endl;
 
-	node* ans = searchBST(root, 140);
-	if (ans) {
-		cout << ans->data << endl;
-	}
-	else {
-		cout << "Not found\n";
-	}
+	// node* ans = searchBST(root, 140);
+	// if (ans) {
+	// 	cout << ans->data << endl;
+	// }
+	// else {
+	// 	cout << "Not found\n";
+	// }
 
-	Pair p = isBalanced(root);
-	cout << "Height: " << p.height << endl;
-	if (p.balanced) {
-		cout << "balanced hai\n";
-	}
-	else {
-		cout << "balanced nahi hai\n";
-	}
+	// Pair p = isBalanced(root);
+	// cout << "Height: " << p.height << endl;
+	// if (p.balanced) {
+	// 	cout << "balanced hai\n";
+	// }
+	// else {
+	// 	cout << "balanced nahi hai\n";
+	// }
 
-	if (isBST(root)) {
-		cout << "BST hai\n";
-	}
-	else {
-		cout << "BST nahi hai\n";
-	}
+	// if (isBST(root)) {
+	// 	cout << "BST hai\n";
+	// }
+	// else {
+	// 	cout << "BST nahi hai\n";
+	// }
 
 	return 0;
 }
