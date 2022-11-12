@@ -19,5 +19,7 @@ public:
 				ans.push_back(nums[q.front()]);
 			}
 		}
+
+		return ans;
 	}
 };

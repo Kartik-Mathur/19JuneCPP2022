@@ -17,5 +17,6 @@ public:
 			ans = max(ans, j - i + 1);
 			j++;
 		}
+		return ans;
 	}
 };

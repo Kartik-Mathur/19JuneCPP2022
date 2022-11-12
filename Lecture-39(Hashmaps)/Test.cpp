@@ -14,6 +14,7 @@ public:
 };
 
 class Hashmap {
+
 	int hashFunction(string key) {
 		int ans = 0;
 		int mul = 1;
@@ -89,15 +90,40 @@ public:
 		}
 	}
 
+	node* search(string key) {
+		int hashIndx = hashFunction(key);
+		node* head = h[hashIndx];
+		while (head) {
+			if (head->key == key) return head;
+			head = head->next;
+		}
+		return NULL;
+	}
+
+	int& operator[](string key) {
+		node* x = search(key);
+		if (x == NULL) {
+			int garbage;
+			insert(key, garbage);
+			x = search(key);
+			return x->value;
+		}
+		return x->value;
+	}
+
 };
 
 int main() {
 
-	Hashmap h;
+	Hashmap<string, int> h;
 	h.insert("mango", 100);
 	h.insert("guava", 80);
 	h.insert("Papaya", 120);
 	h.insert("Kiwi", 20);
+	h["Banana"] = 180;
+	h["Cherry"] = 150;
+	h["Orange"] = 90;
+	h["Banana"] = 80;
 
 	h.print();
 
